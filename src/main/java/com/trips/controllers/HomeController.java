@@ -58,6 +58,8 @@ public class HomeController {
 	        trip1.setFecha(sdf.parse("10-05-2022"));
 	        trip1.setCosto(5.0);
 	        trip1.setDestacado(1);
+	        trip1.setImagen("trip01.png");
+	      
 
 	        Trip trip2 = new Trip();
 	        trip2.setId(2);
@@ -66,6 +68,7 @@ public class HomeController {
 	        trip2.setFecha(sdf.parse("10-05-2022"));
 	        trip2.setCosto(5.0);
 	        trip2.setDestacado(1);
+	        trip2.setImagen("trip02.png");
 
 	        Trip trip3 = new Trip();
 	        trip3.setId(3);
@@ -74,6 +77,7 @@ public class HomeController {
 	        trip3.setFecha(sdf.parse("10-05-2022"));
 	        trip3.setCosto(1.0);
 	        trip3.setDestacado(0); 
+	        trip3.setImagen("tirp03.png");
 
 	        Trip trip4 = new Trip();
 	        trip4.setId(4);
@@ -82,6 +86,7 @@ public class HomeController {
 	        trip4.setFecha(sdf.parse("01-02-2022"));
 	        trip4.setCosto(1.0);
 	        trip4.setDestacado(0);
+	        trip4.setImagen("no-image.png");
 
 	        lista.add(trip1);
 	        lista.add(trip2);
