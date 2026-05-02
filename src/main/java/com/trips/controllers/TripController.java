@@ -15,7 +15,7 @@ import com.trips.services.ITripServices;
 public class TripController {
 	
 	@Autowired
-	private ITripServices serviceTrip;
+	private ITripServices ServiceTrip;
     @GetMapping("/view/{id}")
     public String verDetalle(@PathVariable("id") int idTrip, Model model) {
 
