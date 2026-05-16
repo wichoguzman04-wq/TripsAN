@@ -2,21 +2,20 @@ package com.trips.controllers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.ui.Model; 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.trips.models.Trip;
-import com.trips.services.ITripServices;
+import com.trips.services.ITripServices; 
 
 @Controller
-public class HomeController {
+public class HomeControllers {
 
     @Autowired
     private ITripServices tripService;
@@ -43,16 +42,9 @@ public class HomeController {
 
     @GetMapping("/detalle/{id}")
     public String mostrarDetalle(@PathVariable("id") int id, Model model) {
-        Trip trip = new Trip();
-        trip.setId(id);
-        trip.setNomTrip("Rapel en Volcatenango");
-        trip.setDescripcion("Aventa rapel en un circuito conectado en las...");
-        trip.setFecha(new Date());
-        trip.setCosto(10.0);
-
+        Trip trip = tripService.buscarPorId(id); 
         model.addAttribute("trip", trip);
-
-        return "trips/detalle";
+        return "detalle"; 
     }
 
     @GetMapping("/eliminar/{id}")
@@ -126,5 +118,4 @@ public class HomeController {
         }
         return lista;
     }
-
 }
