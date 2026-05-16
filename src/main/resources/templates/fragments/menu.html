@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+    <nav th:fragment="menu-principal" class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}">TripApp</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav me-auto mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/trips/index}">Tabla Trips</a> 
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/trips/create}">Nuevo Trip</a>
+                    </li>           
+                </ul>  
+                
+                <div class="form-inline my-2 my-lg-0">
+                    <a class="btn btn-primary" th:href="@{#}" style="margin-right: 8px;">Ingresar</a>
+                    <a class="btn btn-primary" th:href="@{#}">Registrarse</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+</body>
+</html>

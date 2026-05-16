@@ -1,42 +1,153 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Trips El Salvador</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Trips El Salvador</title>
+<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/bootstrap/css/sticky-footer-navbar.css}"
+	rel="stylesheet">
+<style>
+body {
+	padding-top: 5.5rem;
+}
+
+.container-fluid {
+	padding-left: 5%;
+	padding-right: 5%;
+}
+
+.table thead th {
+	vertical-align: middle;
+	text-transform: uppercase;
+	font-size: 0.9rem;
+	padding: 15px;
+}
+
+.trip-img {
+	object-fit: cover;
+	border: 1px solid #dee2e6;
+}
+
+.btn-detail {
+	background-color: #407c5c;
+	border-color: #407c5c;
+	color: white;
+	padding: 0.5rem 1rem;
+	margin-right: 8px;
+}
+
+.btn-detail:hover {
+	background-color: #326148;
+	color: white;
+}
+
+.btn-delete {
+	background-color: #b34d4d;
+	border-color: #b34d4d;
+	color: white;
+	padding: 0.5rem 1rem;
+}
+
+.btn-delete:hover {
+	background-color: #8c3c3c;
+	color: white;
+}
+
+.badge-yes {
+	background-color: #d1e7dd;
+	color: #0f5132;
+	border: 1px solid #badbcc;
+	padding: 0.6em 1em;
+	font-weight: bold;
+}
+
+.badge-no {
+	background-color: #f8d7da;
+	color: #842029;
+	border: 1px solid #f5c2c7;
+	padding: 0.6em 1em;
+	font-weight: bold;
+}
+
+.td-actions {
+	min-width: 220px;
+}
+
+.price-text {
+	font-weight: 600;
+	color: #333;
+	font-size: 1.1rem;
+}
+</style>
 </head>
 <body class="bg-light">
-	<img alt="logo" th:src="@{/images/logo.png}" width="136" height="136"> 
-    <h1>Trips en El Salvador</h1>
-    <table class="table table-hover align-middle">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Fecha publicación</th>
-                            <th>Costo</th>
-                            <th>Descripción</th>
-                            <th>Destacado</th>
-                            <th>Eliminar<th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="trip : ${trips}">
-<td>
-    <img th:src="@{/images/{img}(img=${trip.imagen})}" width="100" height="100" />
-</td>
-                            <td th:text="${trip.id}"></td>
-                            <td th:text="${trip.nomTrip}"></td>
-                            <td th:text="${#dates.format(trip.fecha, 'dd-MM-yyyy')}"></td>
-                            <td th:text="${'$' + trip.costo}"></td>
-                            <td th:text="${trip.descripcion}"></td>
-                            <td>
-                                <span th:if="${trip.destacado == 1}" class="badge bg-success text-uppercase p-2">Si</span>
-                                <span th:unless="${trip.destacado == 1}" class="badge bg-danger text-uppercase p-2">No</span>
-							<td>
-   								 <a th:href="@{/trips/view/{id} (id=${trip.id}) }" class="btn btn-success">Detalle</a>
-							</td>
-								<td>
-  								  <a th:href="@{/trips/delete(id=${trip.id}) }" class="btn btn-danger">Eliminar</a>
-									</td>
-									</tr>
-</table>
+
+	<div th:replace="~{menu :: menu-principal}"></div>
+
+	<div class="container-fluid mt-4">
+		<div class="d-flex align-items-center mb-4">
+			<img alt="Logo" th:src="@{/images/logo.png}" width="80" height="80"
+				class="me-3">
+			<h1 class="h2 mb-0 text-dark font-weight-bold">Trips en El
+				Salvador</h1>
+		</div>
+
+		<div class="card shadow-sm border-0">
+			<div class="card-body p-0">
+				<div class="table-responsive">
+					<table class="table table-hover align-middle mb-0">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th class="ps-4">Vista</th>
+								<th>ID</th>
+								<th>Destino</th>
+								<th>Publicación</th>
+								<th>Costo</th>
+								<th style="width: 30%;">Descripción</th>
+								<th class="text-center">Destacado</th>
+								<th class="text-center pe-4">Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="trip : ${trips}">
+								<td class="ps-4"><img
+									th:src="@{/images/{img}(img=${trip?.imagen != null && trip?.imagen != '' ? trip.imagen : 'no-image.png'})}"
+									width="75" height="75" class="rounded trip-img shadow-sm" /></td>
+								<td class="font-weight-bold" th:text="${trip?.id}"></td>
+								<td class="font-weight-bold" th:text="${trip?.nomTrip}"></td>
+								<td class="text-muted"
+									th:text="${trip?.fecha != null ? #dates.format(trip.fecha, 'dd-MM-yyyy') : 'Sin fecha'}"></td>
+								<td><span class="price-text" th:text="${'$' + trip?.costo}"></span>
+								</td>
+								<td class="text-muted small" th:text="${trip?.descripcion}"></td>
+								<td class="text-center"><span
+									th:if="${trip?.destacado == 1}" class="badge badge-yes">SÍ</span>
+									<span th:unless="${trip?.destacado == 1}"
+									class="badge badge-no">NO</span></td>
+								<td class="text-center pe-4 td-actions">
+									<div class="d-flex justify-content-center">
+										<a th:href="@{/trips/view/{id}(id=${trip?.id})}"
+											class="btn btn-detail shadow-sm"> Detalle </a> <a
+											th:href="@{/trips/delete(id=${trip?.id})}"
+											class="btn btn-delete shadow-sm"> Eliminar </a>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer class="footer mt-auto py-4">
+		<div class="container text-center">
+			<p class="text-muted mb-0">&copy; 2026 TripApp, Inc. | WebApp
+				Desarrollada con Spring Boot</p>
+		</div>
+	</footer>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

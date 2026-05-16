@@ -8,5 +8,6 @@ public interface ITripServices {
 	
 	List<Trip> buscarTodo();
 	Trip buscarPorId(Integer idTrip);
-	
-} 
+	void guardar(Trip trip);
+
+}
